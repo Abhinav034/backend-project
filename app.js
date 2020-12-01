@@ -1,30 +1,37 @@
 const express = require('express')
 const app = express()
 require('./db/mongodb')
-const {Test} = require('./db/testSchema')
+const cors = require('cors')
+const { Professor,Program,Course,TimeTable} = require('./db/dbSchema')
 app.use(express.json())   //to parse all json data 
-
+app.use(cors())
 const PORT = process.env.PORT
 
-app.get('/' , async (req , res)=>{
+app.post('/professors' , async (req , res)=>{
 
     try {
         
-        // const test = new Test({
-        //     professor_name: 'Peter',
-        //     subject:'backend'
-        // })
+        const test = new Professor(req.body)
     
-        //await test.save()
+        await test.save()
     
-        // const getFromDatabase = await Test.find({professor_name: 'Kiani'})
-    
-        // res.send(getFromDatabase)
+         res.send('worked')
 
     } catch (error) {
-        console.log(error)
+        res.send(error)
     }
 
+})
+
+app.get('/professors' , async(req,res)=>{
+
+     try {
+        const getFromDatabase = await Professor.find({})
+
+        res.send(getFromDatabase)
+     } catch (error) {
+         res.send(error)
+     }
 })
 
 app.listen(PORT , ()=>{
