@@ -5,6 +5,7 @@ const cors = require('cors')
 const { Professor,Program,Course,TimeTable} = require('./db/dbSchema')
 app.use(express.json())   //to parse all json data 
 app.use(cors())
+app.use(express.static('./src'))
 const PORT = process.env.PORT
 
 app.post('/professors' , async (req , res)=>{
@@ -12,6 +13,22 @@ app.post('/professors' , async (req , res)=>{
     try {
         
         const test = new Professor(req.body)
+    
+        await test.save()
+    
+         res.send('worked')
+
+    } catch (error) {
+        res.send(error)
+    }
+
+})
+
+app.post('/program' , async (req , res)=>{
+
+    try {
+        
+        const test = new Program(req.body)
     
         await test.save()
     
