@@ -8,16 +8,22 @@ const PORT = process.env.PORT
 
 app.get('/' , async (req , res)=>{
 
-    const test = new Test({
-        professor_name: 'Peter',
-        subject:'backend'
-    })
+    try {
+        
+        // const test = new Test({
+        //     professor_name: 'Peter',
+        //     subject:'backend'
+        // })
+    
+        //await test.save()
+    
+        // const getFromDatabase = await Test.find({professor_name: 'Kiani'})
+    
+        // res.send(getFromDatabase)
 
-    //await test.save()
-
-    const getFromDatabase = await Test.find({professor_name:'Peter'})
-
-    res.send(getFromDatabase)
+    } catch (error) {
+        console.log(error)
+    }
 
 })
 
