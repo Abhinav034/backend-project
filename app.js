@@ -65,33 +65,33 @@ app.get('/professorsList' , async (req , res)=>{
 
 //profID
 
-app.get('/profID' , async (req , res)=>{
-
-    
-
-    
-
-
-    try {
+// app.get('/profID' , async (req , res)=>{
+//     try {
         
        
 
-    } catch (error) {
-        res.send(error)
-    }
+//     } catch (error) {
+//         res.send(error)
+//     }
 
-})
+// })
 
 app.post('/cource' , async (req , res)=>{
     console.log("inside cource")
 
     try {
         
-
-        
-        const test = new Course(req.body)
+            
+            var courceObj = req.body
+            console.log(courceObj)
+            const prof = await Professor.findOne({professorName: courceObj.profId})
+            console.log(prof)
+            courceObj.profId = prof._id
+            
+             
+            const test = new Course(courceObj)
     
-        await test.save()
+            await test.save()
     
          res.send('worked')
 

@@ -30,38 +30,15 @@ document.getElementById('add').addEventListener('click' , ()=>{
 
     var courceID = document.getElementById('courceID').value
     var courseName = document.getElementById('courseName').value
-    var roomNumber = document.getElementById('roomNumber').value
-    var hours = document.getElementById('hours').value
-    var profId = null;
-    alert(prof.value);
+    var roomNumber = parseInt(document.getElementById('roomNumber').value)
+    var hours = parseInt(document.getElementById('hours').value)
+    var profId = prof.value
+    
 
     // get prof ID
 
 
     
-
-    fetch(`http://localhost:3000/profID?string=${prof.value}`).then((response)=>{
-        response.json().then((data)=>{
-            
-          console.log(data);
-
-
-          profId = data;
-
-          addToCource(courceID , courseName,roomNumber , hours , profId);
-
-
-
-
-        })
-    }).catch((error)=>{
-        console.log(error)
-    })
- 
-})
-
-
-function addToCource(courceID , courseName,roomNumber , hours , profId){
 
     var theUrl = "http://localhost:3000/cource";
     xmlhttp.open("POST", theUrl , false);
@@ -72,8 +49,10 @@ function addToCource(courceID , courseName,roomNumber , hours , profId){
         roomNumber,
         hours,
         profId
+
     })
     );
     console.log(xmlhttp.responseText)
-}
+
+})
 
