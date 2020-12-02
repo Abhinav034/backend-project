@@ -30,7 +30,7 @@ const programSchema = new mongoose.Schema({
 
 const coursesSchema = new mongoose.Schema({
 
-    code:{
+    courceID:{
         type:String,
         required:true
     },
@@ -49,10 +49,6 @@ const coursesSchema = new mongoose.Schema({
     profId:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'professor'
-    },
-    courseId:{
-        type: String,
-        required:true
     }
 })
 

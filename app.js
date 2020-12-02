@@ -40,6 +40,72 @@ app.post('/program' , async (req , res)=>{
 
 })
 
+// professor list
+app.get('/professorsList' , async (req , res)=>{
+
+    
+
+    try {
+        
+        const test = await Professor.find({})
+
+        let nameList = test.map((item)=>{
+            return item.professorName
+        })
+        
+        
+         res.send(nameList)
+
+    } catch (error) {
+        res.send(error)
+    }
+
+})
+
+
+//profID
+
+app.get('/profID' , async (req , res)=>{
+
+    
+
+    
+
+
+    try {
+        
+       
+
+    } catch (error) {
+        res.send(error)
+    }
+
+})
+
+app.post('/cource' , async (req , res)=>{
+    console.log("inside cource")
+
+    try {
+        
+
+        
+        const test = new Course(req.body)
+    
+        await test.save()
+    
+         res.send('worked')
+
+    } catch (error) {
+        res.send(error)
+    }
+
+})
+
+
+
+
+/// not using below method
+
 app.get('/professors' , async(req,res)=>{
 
      try {

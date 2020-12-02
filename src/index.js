@@ -10,6 +10,12 @@ document.getElementById('addProgram').addEventListener('click' , ()=>{
 
 });
 
+document.getElementById('addCource').addEventListener('click' , ()=>{
+
+    window.location.href = "http://localhost:3000/addCource.html"
+
+});
+
 // document.getElementById('fetchButton').addEventListener('click' , ()=>{
     
 //     fetch('http://localhost:3000/professors').then((response)=>{
