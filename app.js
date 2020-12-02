@@ -188,19 +188,10 @@ app.get('/table' , async (req,res)=>{
 
 
         var tableRowCol= ""
-
-        
-        console.log(Time.length)
-       
-
         for(var i = 0 ; i < Time.length ; i++){
-            console.log("inside 1st for loop")
-
             var cols = ""
             var data = null
             for(var j = 0 ; j < Days.length ; j++){
-                console.log("inside 2nd st for loop")
-
 
                 var o = await TimeTable.findOne({day: Days[j], time: Time[i]} )
                 
@@ -255,17 +246,9 @@ tr:nth-child(even) {
 </tr>
 
 ${tableRowCol}
-</table>
-
-        `
-
-
+</table>`
         res.send(cont)
-        console.log(tt)
-        
-
-
-        
+  
 })
 
 
