@@ -118,14 +118,7 @@ app.post('/cource' , async (req , res)=>{
     try {
         
             
-            var courceObj = req.body
-            console.log(courceObj)
-            
-            const prof = await Professor.findOne({professorName: courceObj.profId})
-            
-            courceObj.profId = prof._id
-            
-             
+            var courceObj = req.body 
             const test = new Course(courceObj)
     
             await test.save()
@@ -190,16 +183,6 @@ app.get('/professors' , async(req,res)=>{
 
 app.get('/table' , async (req,res)=>{
     
-    var tt = await TimeTable.find({})
-
-        for (var i = 0 ; i<tt.length ; i++){
-            console.log("inside for loop")
-                await tt[i].populate('programId').execPopulate()
-                await tt[i].populate('courseId').execPopulate()
-
-        }
-
-        
         Days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
         Time = ['10 am - 11 am','11 am - 12 pm','12 pm - 1 pm','2 pm - 3 pm','3 pm - 4 pm','4 pm - 5 pm']
 
@@ -214,24 +197,30 @@ app.get('/table' , async (req,res)=>{
             console.log("inside 1st for loop")
 
             var cols = ""
+            var data = null
             for(var j = 0 ; j < Days.length ; j++){
                 console.log("inside 2nd st for loop")
 
-                // find element with the same detail
 
-                // if found than add details
+                var o = await TimeTable.findOne({day: Days[j], time: Time[i]} )
+                
 
-                var o = tt[0];
+                if (o == null ){
 
-                data = `${o.courseId.courseName}:${o.courseId.courseCode }
-                ${o.time}\n
-                ${o.courseId.roomNumber}
-                By: Prof Peter
-                `
+                    data = 'N A'
 
+                }else{
+                    await o.populate('programId').execPopulate()
+                    await o.populate('courseId').execPopulate()
+
+                    data = `${o.courseId.courseName}:${o.courseId.courseCode }
+                    ${o.time}\n
+                    ${o.courseId.roomNumber}
+                    By: Prof ${o.courseId.profId}
+                    `
+                }
+     
             cols+= `<td> ${data}</td>`
-
-
             }
             tableRowCol+= `<tr>${cols}</tr>`
 
