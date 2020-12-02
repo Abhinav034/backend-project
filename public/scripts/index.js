@@ -1,24 +1,24 @@
 document.getElementById('addProf').addEventListener('click' , ()=>{
 
-    window.location.href = "http://localhost:3000/addProfessor.html"
+    window.location.href = "http://localhost:3000/src/addProfessor.html"
 
 });
 
 document.getElementById('addProgram').addEventListener('click' , ()=>{
 
-    window.location.href = "http://localhost:3000/addProgram.html"
+    window.location.href = "http://localhost:3000/src/addProgram.html"
 
 });
 
 document.getElementById('addCource').addEventListener('click' , ()=>{
 
-    window.location.href = "http://localhost:3000/addCource.html"
+    window.location.href = "http://localhost:3000/src/addCource.html"
 
 });
 
 document.getElementById('addCource').addEventListener('click' , ()=>{
 
-    window.location.href = "http://localhost:3000/timetable.html"
+    window.location.href = "http://localhost:3000/src/timetable.html"
 
 });
 

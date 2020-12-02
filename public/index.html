@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href= "./styles/style.css">
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left panel -->
+            <div class="col-sm-4 left-panel">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="./src/addProfessor.html">Instructors</a></li>
+                    <li class="list-group-item"><a href="./src/addProgram.html">Programs</a></li>
+                    <li class="list-group-item"><a href="./src/addCource.html">Courses</a></li>
+                    <li class="list-group-item"><a href="./src/addTimeTable.html">Generate Schedule</a></li>
+                  </ul>
+            </div>
+
+            <!-- right panel -->
+            <div class="col-sm-8 right-panel">
+                <form action="/index" class="needs-validation">
+                      <input type="text" class="form-control" id="pname" placeholder="Enter instructor's name" required>
+                      <input type="text" class="form-control" id="pemail" placeholder="Enter email address" required>
+                      <input type="text" class="form-control" id="pcontact" placeholder="Enter phone number" required>
+                     
+                    <button type="submit" class="btn btn-add-prof">Add</button>
+                  </form>
+            </div>
+        </div>
+        
+    </div>
+
+    
+   
+
+   
+
+    <!-- <button id="addProf">Add Professor</button>
+    <button id="addProgram">Add Program</button>
+    <button id="addCource">Add Cource</button>
+    <button id="AddSchedule">Add Schedule</button>
+
+    <button id="generateTimeTable">Generate time Table</button> -->
+
+    <script src="./scripts/index.js"></script>
+</body>
+</html>

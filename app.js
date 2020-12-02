@@ -1,11 +1,11 @@
 const express = require('express')
 const app = express()
-require('./db/mongodb')
+require('./public/db/mongodb')
 const cors = require('cors')
-const { Professor,Program,Course,TimeTable} = require('./db/dbSchema')
+const { Professor,Program,Course,TimeTable} = require('./public/db/dbSchema')
 app.use(express.json())   //to parse all json data 
 app.use(cors())
-app.use(express.static('./src'))
+app.use(express.static('./public'))
 const PORT = process.env.PORT
 
 app.post('/professors' , async (req , res)=>{
