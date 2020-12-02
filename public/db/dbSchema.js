@@ -5,12 +5,12 @@ const professorSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    contactInfo:{
+    email:{
         type:String,
         required:true,
         unique:true
     },
-    subject:{
+    contactInfo:{
         type:String,
         required:true
     }   

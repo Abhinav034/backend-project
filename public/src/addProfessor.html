@@ -2,11 +2,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href= "../styles/style.css">
     <title>Document</title>
 </head>
 <body>
 
-    <div>
+    <!-- <div>
         <input id="profName" placeholder="Enter professor name"/>
     </div>
     <div>
@@ -16,8 +23,35 @@
         <input id="profSub" placeholder="Enter professor subject"/>
     </div>
 
-    <button id="add">Add</button>
+    <button id="add">Add</button> -->
    
+
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left panel -->
+            <div class="col-sm-4 left-panel">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="./addProfessor.html">Instructors</a></li>
+                    <li class="list-group-item"><a href="./addProgram.html">Programs</a></li>
+                    <li class="list-group-item"><a href="./addCource.html">Courses</a></li>
+                    <li class="list-group-item"><a href="./addTimeTable.html">Generate Schedule</a></li>
+                  </ul>
+            </div>
+
+            <!-- right panel -->
+            <div class="col-sm-8 right-panel">
+                <div class="needs-validation">
+                      <input type="text" class="form-control" id="pname" placeholder="Enter instructor's name" required>
+                      <input type="text" class="form-control" id="pemail" placeholder="Enter email address" required>
+                      <input type="text" class="form-control" id="pcontact" placeholder="Enter phone number" required>
+                     
+                    <button id="addProf" type="submit" class="btn btn-add-prof">Add</button>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
 
     <script src="../scripts/professor.js"></script>
 </body>

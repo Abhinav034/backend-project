@@ -1,14 +1,12 @@
 
 var xmlhttp = new XMLHttpRequest();  
 
-document.getElementById('add').addEventListener('click' , ()=>{
+document.getElementById('addProf').addEventListener('click' , ()=>{
 
 
-    var professorName = document.getElementById('profName').value
-    var contactInfo = document.getElementById('profContact').value
-    var subject = document.getElementById('profSub').value
-
-
+    var professorName = document.getElementById('pname').value
+    var email = document.getElementById('pemail').value
+    var contactInfo = document.getElementById('pcontact').value
 
      
     var theUrl = "http://localhost:3000/professors";
@@ -16,8 +14,8 @@ document.getElementById('add').addEventListener('click' , ()=>{
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlhttp.send(JSON.stringify({
         professorName,
-        contactInfo,
-        subject
+        email,
+        contactInfo
     }));
 
     console.log(xmlhttp.responseText)
