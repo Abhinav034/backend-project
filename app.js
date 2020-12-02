@@ -52,8 +52,6 @@ app.get('/professorsList' , async (req , res)=>{
         let nameList = test.map((item)=>{
             return item.professorName
         })
-        
-        
          res.send(nameList)
 
     } catch (error) {
@@ -62,19 +60,41 @@ app.get('/professorsList' , async (req , res)=>{
 
 })
 
+// program list
+app.get('/programList' , async (req , res)=>{
 
-//profID
-
-// app.get('/profID' , async (req , res)=>{
-//     try {
+    try {
         
-       
+        const test = await Program.find({})
 
-//     } catch (error) {
-//         res.send(error)
-//     }
+        let progList = test.map((item)=>{
+            return item.programName
+        })
+         res.send(progList)
 
-// })
+    } catch (error) {
+        res.send(error)
+    }
+    
+})
+
+// cource list
+app.get('/courceList' , async (req , res)=>{
+
+    try {
+        
+        const test = await Course.find({})
+
+        let cList = test.map((item)=>{
+            return item.courseName
+        })
+         res.send(cList)
+
+    } catch (error) {
+        res.send(error)
+    }
+    
+})
 
 app.post('/cource' , async (req , res)=>{
     console.log("inside cource")

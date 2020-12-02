@@ -54,18 +54,23 @@ const coursesSchema = new mongoose.Schema({
 
 const timeTableSchema = new mongoose.Schema({
 
+    programId:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:'program'
+    },
+
     courseId:{
         type: mongoose.Schema.Types.ObjectId,
         ref:'course'
     },
 
     day:{
-        type:Date,
+        type: String,
         required:true
     },
 
     time:{
-        type:Number,
+        type: String,
         required:true
     }
 })

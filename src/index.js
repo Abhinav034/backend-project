@@ -16,6 +16,12 @@ document.getElementById('addCource').addEventListener('click' , ()=>{
 
 });
 
+document.getElementById('addCource').addEventListener('click' , ()=>{
+
+    window.location.href = "http://localhost:3000/timetable.html"
+
+});
+
 // document.getElementById('fetchButton').addEventListener('click' , ()=>{
     
 //     fetch('http://localhost:3000/professors').then((response)=>{
