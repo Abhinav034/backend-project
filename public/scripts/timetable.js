@@ -39,17 +39,20 @@ document.getElementById('add').addEventListener('click' , ()=>{
     var programId = program.value
     var courceID = cource.value
     var day = document.getElementById('days').value
+    var time = document.getElementById('time').value
     
 
 
 
      
-    var theUrl = "http://localhost:3000/program";
+    var theUrl = "http://localhost:3000/timetable";
     xmlhttp.open("POST", theUrl , false);
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlhttp.send(JSON.stringify({
-        programName,
-        code
+       programId,
+       courceID,
+       day,
+       time
     }));
 
     console.log(xmlhttp.responseText)

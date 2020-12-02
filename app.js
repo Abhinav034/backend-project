@@ -103,9 +103,9 @@ app.post('/cource' , async (req , res)=>{
         
             
             var courceObj = req.body
-            console.log(courceObj)
+            
             const prof = await Professor.findOne({professorName: courceObj.profId})
-            console.log(prof)
+            
             courceObj.profId = prof._id
             
              
@@ -121,6 +121,32 @@ app.post('/cource' , async (req , res)=>{
 
 })
 
+app.post('/timetable' , async (req , res)=>{
+    console.log("inside cource")
+
+    try {
+        
+            
+            var ttObj = req.body
+            
+            const c = await Course.findOne({courseName: ttObj.courceID})
+            //programId
+            const p = await Program.findOne({programName: ttObj.programId})
+            ttObj.courceID = c._id
+            ttObj.programId = p._id
+            
+             
+            const test = new TimeTable(ttObj)
+    
+            await test.save()
+    
+         res.send('worked')
+
+    } catch (error) {
+        res.send(error)
+    }
+
+})
 
 
 
