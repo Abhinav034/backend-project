@@ -40,7 +40,7 @@ app.post('/program' , async (req , res)=>{
 
 })
 
-// professor list
+// professor names list
 app.get('/professorsList' , async (req , res)=>{
 
     
@@ -59,6 +59,22 @@ app.get('/professorsList' , async (req , res)=>{
     }
 
 })
+
+// professor all data list
+app.get('/professorsData' , async (req , res)=>{
+
+    try {
+        
+        const test = await Professor.find({})
+
+         res.send(test)
+
+    } catch (error) {
+        res.send(error)
+    }
+
+})
+
 
 // program list
 app.get('/programList' , async (req , res)=>{

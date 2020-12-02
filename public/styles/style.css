@@ -2,7 +2,7 @@
     padding: 15px;
 }
 .left-panel{
-    background-color: gray;
+    background-color: #367082;
 }
 .left-panel .list-group-flush>.list-group-item {
     background-color: transparent;
@@ -15,12 +15,5 @@
 .left-panel a {
     color: white;
 }
-.right-panel .form-control{
-    width: 40%;
-    margin: 2% 0%;
-}
 
-.btn-add-prof{
-    border: 1px solid #000000;
-    padding: 7px 40px;
-}
+
