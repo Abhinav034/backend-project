@@ -103,6 +103,7 @@ app.post('/cource' , async (req , res)=>{
         
             
             var courceObj = req.body
+            console.log(courceObj)
             
             const prof = await Professor.findOne({professorName: courceObj.profId})
             
@@ -122,25 +123,33 @@ app.post('/cource' , async (req , res)=>{
 })
 
 app.post('/timetable' , async (req , res)=>{
-    console.log("inside cource")
+    console.log("inside timetable")
 
     try {
         
             
             var ttObj = req.body
+            console.log(ttObj)
+          
+
             
-            const c = await Course.findOne({courseName: ttObj.courceID})
-            //programId
+            const c = await Course.findOne({courseName: ttObj.courseId})
             const p = await Program.findOne({programName: ttObj.programId})
-            ttObj.courceID = c._id
+
+            ttObj.courseId = c._id
+            
             ttObj.programId = p._id
             
+            console.log(ttObj)
              
             const test = new TimeTable(ttObj)
+
+           
     
             await test.save()
     
          res.send('worked')
+
 
     } catch (error) {
         res.send(error)

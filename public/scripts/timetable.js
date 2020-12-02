@@ -37,7 +37,7 @@ var xmlhttp = new XMLHttpRequest();
 document.getElementById('add').addEventListener('click' , ()=>{
 
     var programId = program.value
-    var courceID = cource.value
+    var courseId = cource.value
     var day = document.getElementById('days').value
     var time = document.getElementById('time').value
     
@@ -50,7 +50,7 @@ document.getElementById('add').addEventListener('click' , ()=>{
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlhttp.send(JSON.stringify({
        programId,
-       courceID,
+       courseId,
        day,
        time
     }));

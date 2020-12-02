@@ -28,7 +28,7 @@ var xmlhttp = new XMLHttpRequest();
 document.getElementById('add').addEventListener('click' , ()=>{
 
 
-    var courceID = document.getElementById('courceID').value
+    var courseCode = document.getElementById('courceID').value
     var courseName = document.getElementById('courseName').value
     var roomNumber = parseInt(document.getElementById('roomNumber').value)
     var hours = parseInt(document.getElementById('hours').value)
@@ -44,7 +44,7 @@ document.getElementById('add').addEventListener('click' , ()=>{
     xmlhttp.open("POST", theUrl , false);
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlhttp.send(JSON.stringify({
-        courceID,
+        courseCode,
         courseName,
         roomNumber,
         hours,

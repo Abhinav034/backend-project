@@ -30,7 +30,7 @@ const programSchema = new mongoose.Schema({
 
 const coursesSchema = new mongoose.Schema({
 
-    courceID:{
+    courseCode:{
         type:String,
         required:true
     },
