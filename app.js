@@ -172,6 +172,98 @@ app.get('/professors' , async(req,res)=>{
      }
 })
 
+app.get('/table' , async (req,res)=>{
+    
+    var tt = await TimeTable.find({})
+
+        for (var i = 0 ; i<tt.length ; i++){
+            console.log("inside for loop")
+                await tt[i].populate('programId').execPopulate()
+                await tt[i].populate('courseId').execPopulate()
+
+        }
+
+        
+        Days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
+        Time = ['10 am - 11 am','11 am - 12 pm','12 pm - 1 pm','2 pm - 3 pm','3 pm - 4 pm','4 pm - 5 pm']
+
+
+        var tableRowCol= ""
+
+        
+        console.log(Time.length)
+       
+
+        for(var i = 0 ; i < Time.length ; i++){
+            console.log("inside 1st for loop")
+
+            var cols = ""
+            for(var j = 0 ; j < Days.length ; j++){
+                console.log("inside 2nd st for loop")
+
+                // find element with the same detail
+
+                // if found than add details
+
+                var o = tt[0];
+
+                data = `${o.courseId.courseName}:${o.courseId.courseCode }
+                ${o.time}\n
+                ${o.courseId.roomNumber}
+                By: Prof Peter
+                `
+
+            cols+= `<td> ${data}</td>`
+
+
+            }
+            tableRowCol+= `<tr>${cols}</tr>`
+
+        }
+
+        var cont = `
+        <style>
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+</style>
+
+<table>
+<tr>
+<th>${Days[0]}</th>
+<th>${Days[1]}</th>
+<th>${Days[2]}</th>
+<th>${Days[3]}</th>
+<th>${Days[4]}</th>
+</tr>
+
+${tableRowCol}
+</table>
+
+        `
+
+
+        res.send(cont)
+        console.log(tt)
+        
+
+
+        
+})
+
+
 app.listen(PORT , ()=>{
     console.log('Server up and running on port 3000')
 })

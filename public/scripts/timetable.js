@@ -31,7 +31,6 @@ fetch('http://localhost:3000/courceList').then((response)=>{
             console.log(error)
 })
 
-
 var xmlhttp = new XMLHttpRequest();  
 
 document.getElementById('add').addEventListener('click' , ()=>{
