@@ -24,5 +24,17 @@ router.post('/course' , async (req , res)=>{
     }
 
 })
+router.get('/courseData' , async (req , res)=>{
+
+    try {
+        
+        const test = await Course.find({})
+        res.send(test)
+
+    } catch (error) {
+        res.send(error)
+    }
+
+})
 
 module.exports = router
