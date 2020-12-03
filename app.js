@@ -94,8 +94,22 @@ app.get('/programList' , async (req , res)=>{
     
 })
 
+// program all data list
+app.get('/programData' , async (req , res)=>{
+
+    try {
+        
+        const test = await Program.find({})
+        res.send(test)
+
+    } catch (error) {
+        res.send(error)
+    }
+
+})
+
 // cource list
-app.get('/courceList' , async (req , res)=>{
+app.get('/courseList' , async (req , res)=>{
 
     try {
         
@@ -112,14 +126,28 @@ app.get('/courceList' , async (req , res)=>{
     
 })
 
-app.post('/cource' , async (req , res)=>{
-    console.log("inside cource")
+// course all data list
+app.get('/courseData' , async (req , res)=>{
+
+    try {
+        
+        const test = await Course.find({})
+        res.send(test)
+
+    } catch (error) {
+        res.send(error)
+    }
+
+})
+
+app.post('/course' , async (req , res)=>{
+    console.log("inside course")
 
     try {
         
             
-            var courceObj = req.body 
-            const test = new Course(courceObj)
+            var courseObj = req.body 
+            const test = new Course(courseObj)
     
             await test.save()
     
