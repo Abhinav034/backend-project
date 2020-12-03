@@ -177,6 +177,7 @@ function deleteRecord(id, tableName){
             alert(data.message)
             document.getElementById(id).remove();
             
+            
         })
 
     }).catch((error) => {

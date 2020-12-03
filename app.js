@@ -3,132 +3,34 @@ const app = express()
 require('./public/db/mongodb')
 const cors = require('cors')
 const { Professor,Program,Course,TimeTable} = require('./public/db/dbSchema')
+
+const professorRoute = require('./public/routes/professorRoute')
+const programRoute = require('./public/routes/programRoutes')
+const courseRoute = require('./public/routes/courseRoutes')
+
+
+
 app.use(express.json())   //to parse all json data 
 app.use(cors())
 app.use(express.static('./public'))
 const PORT = process.env.PORT
 
-app.post('/professors' , async (req , res)=>{
 
-    try {
-        
-        const test = new Professor(req.body)
-        await test.save()
-        
-        res.send( JSON.stringify({
-            message: 'Sucessfully inserted!!', 
-            profObj: test, 
-            status: 'success'})
-        )
-
-    } catch (error) {
-        res.send( JSON.stringify({
-            message: 'Incorrect data. Try again!!',
-            status: 'failure'})
-        )
-    }
-
-})
+app.use(professorRoute)
+app.use(programRoute)
+app.use(courseRoute)
 
 
-app.post('/program' , async (req , res)=>{
 
-    try {
-        
-        const test = new Program(req.body)
-        await test.save()
-    
-        res.send( JSON.stringify({
-            message: 'Sucessfully inserted!!', 
-            progObj: test, 
-            status: 'success'})
-        )
-
-    } catch (error) {
-        res.send( JSON.stringify({
-            message: 'Incorrect data. Try again!!',
-            status: 'failure'})
-        )
-    }
-
-})
-
-app.post('/course' , async (req , res)=>{
-    console.log("inside course")
-
-    try {
-        const test = new Course(req.body )
-        await test.save()
-
-        res.send( JSON.stringify({
-            message: 'Sucessfully inserted!!', 
-            courseObj: test, 
-            status: 'success'})
-        )
-
-    } catch (error) {
-        res.send( JSON.stringify({
-            message: 'Incorrect data. Try again!!',
-            status: 'failure'})
-        )
-    }
-
-})
 
 //delete records
-app.get('/deleteRecord', async(req, res) => {
-    console.log("inside deletion");
-    try{
-        switch(req.query.table){
-            case "Professor":
-                await Professor.findByIdAndRemove(req.query.id)
-                break;
-            case "Program":
-                await Program.findByIdAndRemove(req.query.id)
-                break;
-            case "Course":
-                await Course.findByIdAndRemove(req.query.id)
-                break;
-            case "TimeTable":
-                await TimeTable.findByIdAndRemove(req.query.id)
-                break;
-        
-        }
 
-        res.send({message: 'successfully deleted!!'})
-    } catch(error){
-        res.send(error)
-    }
-})
 
 // professor all data
-app.get('/professorsData' , async (req , res)=>{
 
-    try {
-        
-        const test = await Professor.find({})
-
-         res.send(test)
-
-    } catch (error) {
-        res.send(error)
-    }
-
-})
 
 // program all data list
-app.get('/programData' , async (req , res)=>{
 
-    try {
-        
-        const test = await Program.find({})
-        res.send(test)
-
-    } catch (error) {
-        res.send(error)
-    }
-
-})
 
 // course all data list
 app.get('/courseData' , async (req , res)=>{
@@ -168,12 +70,16 @@ app.post('/timetable' , async (req , res)=>{
             console.log(ttObj)
             const test = new TimeTable(ttObj)
             await test.save()
-            res.send('worked')
+            res.send(JSON.stringify({
+                status:'success',
+                message:'Schedule Inserted Successfully'
+            }))
 
             }else{
-
-                res.send('this time slot already booked for your program - operation not allowed')
-
+                res.send(JSON.stringify({
+                    status:'failure',
+                    message:'This time slot already booked for your program - operation not allowed'
+                }))
             }
     } catch (error) {
         res.send(error)
@@ -216,7 +122,7 @@ app.get('/table' , async (req,res)=>{
 
                 var o = await TimeTable.findOne({day: Days[j], time: Time[i],programId: pobj._id })
                 
-                if (o == null ){
+                if (o === null ){
 
                     data = '---'
 
@@ -224,9 +130,9 @@ app.get('/table' , async (req,res)=>{
                     await o.populate('programId').execPopulate()
                     await o.populate('courseId').execPopulate()
 
-                    data = `${o.courseId.courseName}: ${o.courseId.courseCode }\n
-                    ${o.time}\n
-                    ${o.courseId.roomNumber}\n 
+                    data = `${o.courseId.courseName}: ${o.courseId.courseCode }<br>
+                    ${o.time}<br>
+                    ${o.courseId.roomNumber}<br>
                     By: Prof ${o.courseId.profId}\n <button id='${o._id}' class="btndelete" onclick="removeEntry('${o._id}')">Delete</button>
                     `
                 }
