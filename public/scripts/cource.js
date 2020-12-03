@@ -1,12 +1,12 @@
 var coursesTable = document.getElementById('table-courses')
 var prof = document.getElementById('instructor');
 
-fetch('http://localhost:3000/professorsList').then((response)=>{
+fetch('http://localhost:3000/professorsData').then((response)=>{
     response.json().then((data)=>{
         data.forEach((item)=>{
             var s = document.createElement('option')
-            s.innerHTML = item;
-            s.setAttribute('value', item)
+            s.innerHTML = item.professorName;
+            s.setAttribute('value', item.professorName)
             prof.appendChild(s);
             
         })

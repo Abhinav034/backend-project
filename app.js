@@ -13,10 +13,14 @@ app.post('/professors' , async (req , res)=>{
     try {
         
         const test = new Professor(req.body)
-    
+        
         await test.save()
-    
-         res.send('worked')
+        
+         res.send( JSON.stringify({
+             message: 'Sucessfully inserted!!', 
+             profObj: test, 
+             status: 'success'})
+         )
 
     } catch (error) {
         res.send(error)
@@ -41,43 +45,52 @@ app.post('/program' , async (req , res)=>{
 })
 
 // professor names list
-app.get('/professorsList' , async (req , res)=>{
+// app.get('/professorsList' , async (req , res)=>{
 
     
 
-    try {
+//     try {
         
-        const test = await Professor.find({})
+//         const test = await Professor.find({})
 
-        let nameList = test.map((item)=>{
-            return item.professorName
-        })
-         res.send(nameList)
+//         let nameList = test.map((item)=>{
+//             return item.professorName
+//         })
+//          res.send(nameList)
 
-    } catch (error) {
+//     } catch (error) {
+//         res.send(error)
+//     }
+
+// })
+
+//delete records
+app.get('/deleteRecord', async(req, res) => {
+    console.log("inside deletion");
+    try{
+        switch(req.query.table){
+            case "Professor":
+                await Professor.findByIdAndRemove(req.query.id)
+                break;
+            case "Program":
+                await Program.findByIdAndRemove(req.query.id)
+                break;
+            case "Course":
+                await Course.findByIdAndRemove(req.query.id)
+                break;
+            case "TimeTable":
+                await TimeTable.findByIdAndRemove(req.query.id)
+                break;
+        
+        }
+
+        res.send({message: 'successfully deleted!!'})
+    } catch(error){
         res.send(error)
     }
-
 })
 
-app.get('/remove' , async (req , res)=>{
-
-    
-
-    try {
-        
-       const isRemoved =  await TimeTable.findByIdAndRemove(req.query.id)
-        
-       
-       res.send({msg:'Deleted'})
-
-    } catch (error) {
-        res.send(error)
-    }
-
-})
-
-// professor all data list
+// professor all data
 app.get('/professorsData' , async (req , res)=>{
 
     try {
@@ -93,23 +106,23 @@ app.get('/professorsData' , async (req , res)=>{
 })
 
 
-// program list
-app.get('/programList' , async (req , res)=>{
+// // program list
+// app.get('/programList' , async (req , res)=>{
 
-    try {
+//     try {
         
-        const test = await Program.find({})
+//         const test = await Program.find({})
 
-        let progList = test.map((item)=>{
-            return item.programName
-        })
-         res.send(progList)
+//         let progList = test.map((item)=>{
+//             return item.programName
+//         })
+//          res.send(progList)
 
-    } catch (error) {
-        res.send(error)
-    }
+//     } catch (error) {
+//         res.send(error)
+//     }
     
-})
+// })
 
 // program all data list
 app.get('/programData' , async (req , res)=>{
@@ -126,22 +139,22 @@ app.get('/programData' , async (req , res)=>{
 })
 
 // cource list
-app.get('/courseList' , async (req , res)=>{
+// app.get('/courseList' , async (req , res)=>{
 
-    try {
+//     try {
         
-        const test = await Course.find({})
+//         const test = await Course.find({})
 
-        let cList = test.map((item)=>{
-            return item.courseName
-        })
-         res.send(cList)
+//         let cList = test.map((item)=>{
+//             return item.courseName
+//         })
+//          res.send(cList)
 
-    } catch (error) {
-        res.send(error)
-    }
+//     } catch (error) {
+//         res.send(error)
+//     }
     
-})
+// })
 
 // course all data list
 app.get('/courseData' , async (req , res)=>{

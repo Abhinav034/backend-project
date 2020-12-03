@@ -1,5 +1,8 @@
+
 var profTable = document.getElementById('table-prof')
 var xmlhttp = new XMLHttpRequest();  
+
+showProfessorsTable();
 
 document.getElementById('addProf').addEventListener('click' , ()=>{
 
@@ -17,107 +20,113 @@ document.getElementById('addProf').addEventListener('click' , ()=>{
         contactInfo
     }));
 
-    console.log(xmlhttp.responseText)
+    var x = xmlhttp.responseText
+    var data = JSON.parse(x)
+    console.log(data.message)
+    
+    //adding new professor
+    var tr = document.createElement('tr');
+    tr.setAttribute('id', data.profObj._id)
+    profTable.appendChild(tr)
 
-    //refresh table
-    fetch('http://localhost:3000/professorsData').then((response) => {
-    response.json().then((data) => {
-        
-        let lastItem = data[data.length - 1]
+    var td = document.createElement('td')
+    td.appendChild(document.createTextNode(professorName))
+    tr.appendChild(td)
 
-        if(data.length == 1){
+    var td1 = document.createElement('td')
+    td1.appendChild(document.createTextNode(email))
+    tr.appendChild(td1)
 
-            let tr = document.createElement('tr');
-            profTable.appendChild(tr)
-            
-            let th = document.createElement('th');
-            let pName = document.createTextNode('Name');
-            th.appendChild(pName)
-            tr.appendChild(th)
-            let th2 = document.createElement('th');
-            let pEmail = document.createTextNode('Email');
-            th2.appendChild(pEmail)
-            tr.appendChild(th2)
-            let th3 = document.createElement('th');
-            let pPhone = document.createTextNode('Phone');
-            th3.appendChild(pPhone)
-            tr.appendChild(th3)
-        }
+    var td2= document.createElement('td')
+    td2.appendChild(document.createTextNode(contactInfo))
+    tr.appendChild(td2)
 
-            var tr = document.createElement('tr');
-            profTable.appendChild(tr)
-
-            var td = document.createElement('td')
-            td.appendChild(document.createTextNode(lastItem.professorName))
-            tr.appendChild(td)
-
-            var td1 = document.createElement('td')
-            td1.appendChild(document.createTextNode(lastItem.email))
-            tr.appendChild(td1)
-
-            var td2= document.createElement('td')
-            td2.appendChild(document.createTextNode(lastItem.contactInfo))
-            tr.appendChild(td2)
-           
+    createButton(tr, function(){
+        deleteRecord(data.profObj._id, 'Professor');
     })
-})
-
-
 
 })
 
 
+function createButton(context, func){
+    var button = document.createElement('button');
+    var td = document.createElement('td')
+    button.textContent = "Delete";
+    button.onclick = func;
+    td.appendChild(button)
+    context.appendChild(td);
 
-fetch('http://localhost:3000/professorsData').then((response) => {
-    response.json().then((data) => {
+}
+
+function deleteRecord(id, tableName){
+    fetch(`http://localhost:3000/deleteRecord?id=${id}&table=${tableName}`).then(response => {
+
         
-        // console.log(data.length);
-
-        if(data.length > 0){
-
-            let tr = document.createElement('tr');
-            profTable.appendChild(tr)
+        response.json().then((data)=>{
             
-            let th = document.createElement('th');
-            let pName = document.createTextNode('Name');
-            th.appendChild(pName)
-            tr.appendChild(th)
-            let th2 = document.createElement('th');
-            let pEmail = document.createTextNode('Email');
-            th2.appendChild(pEmail)
-            tr.appendChild(th2)
-            let th3 = document.createElement('th');
-            let pPhone = document.createTextNode('Phone');
-            th3.appendChild(pPhone)
-            tr.appendChild(th3)
-        }
-
-        data.forEach((item) => {
-            // console.log(item);
-            var tr = document.createElement('tr');
-            tr.setAttribute("id", "row");
-            profTable.appendChild(tr)
-
-            var td = document.createElement('td')
-            let name = document.createTextNode(item.professorName)
-            td.appendChild(name)
-            tr.appendChild(td)
-
-            var td1 = document.createElement('td')
-            let email = document.createTextNode(item.email)
-            td1.appendChild(email)
-            tr.appendChild(td1)
-
-            var td2= document.createElement('td')
-            let contact = document.createTextNode(item.contactInfo)
-            td2.appendChild(contact)
-            tr.appendChild(td2)
+            console.log(data)
+            document.getElementById(id).remove();
             
         })
+
+    }).catch((error) => {
+        console.log(error);
     })
-})
+}
 
 
-
-
-
+ //fetch all data 
+function showProfessorsTable(){
+    fetch('http://localhost:3000/professorsData').then((response) => {
+        response.json().then((data) => {
+            
+            // console.log(data.length);
+    
+            if(data.length > 0){
+    
+                let tr = document.createElement('tr');
+                profTable.appendChild(tr)
+                
+                let th = document.createElement('th');
+                let pName = document.createTextNode('Name');
+                th.appendChild(pName)
+                tr.appendChild(th)
+                let th2 = document.createElement('th');
+                let pEmail = document.createTextNode('Email');
+                th2.appendChild(pEmail)
+                tr.appendChild(th2)
+                let th3 = document.createElement('th');
+                let pPhone = document.createTextNode('Phone');
+                th3.appendChild(pPhone)
+                tr.appendChild(th3)
+            }
+    
+            data.forEach((item) => {
+                var tr = document.createElement('tr');
+                tr.setAttribute('id', item._id)
+                profTable.appendChild(tr)
+    
+                var td = document.createElement('td')
+                let name = document.createTextNode(item.professorName)
+                td.appendChild(name)
+                tr.appendChild(td)
+    
+                var td1 = document.createElement('td')
+                let email = document.createTextNode(item.email)
+                td1.appendChild(email)
+                tr.appendChild(td1)
+    
+                var td2= document.createElement('td')
+                let contact = document.createTextNode(item.contactInfo)
+                td2.appendChild(contact)
+                tr.appendChild(td2)
+    
+                createButton(tr, function(){
+                    deleteRecord(item._id, 'Professor');
+                })
+                
+            })
+        })
+    })
+           
+}

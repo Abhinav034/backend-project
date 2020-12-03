@@ -1,12 +1,12 @@
 // fetch program list
 var program = document.getElementById('programs');
 
-fetch('http://localhost:3000/programList').then((response)=>{
+fetch('http://localhost:3000/programData').then((response)=>{
             response.json().then((data)=>{
                 data.forEach((item)=>{
                     var s = document.createElement('option')
-                    s.innerHTML = item;
-                    s.setAttribute('value', item)
+                    s.innerHTML = item.programName;
+                    s.setAttribute('value', item.programName)
                     programs.appendChild(s);
                 })
             })
@@ -39,9 +39,8 @@ document.getElementById('show').addEventListener('click' , ()=>{
 
 function removeEntry(id){
 
+    fetch(`http://localhost:3000/deleteRecord?id=${id}&table=TimeTable`).then((response)=>{
 
-    fetch(`http://localhost:3000/remove?id=${id}`).then((response)=>{
-            
 
             console.log(response)
             response.json().then((data)=>{

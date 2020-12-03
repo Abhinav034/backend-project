@@ -2,12 +2,12 @@
 // fetch program list
 var program = document.getElementById('programs');
 
-fetch('http://localhost:3000/programList').then((response)=>{
+fetch('http://localhost:3000/programData').then((response)=>{
             response.json().then((data)=>{
                 data.forEach((item)=>{
                     var s = document.createElement('option')
-                    s.innerHTML = item;
-                    s.setAttribute('value', item)
+                    s.innerHTML = item.programName;
+                    s.setAttribute('value', item.programName)
                     programs.appendChild(s);
                 })
             })
@@ -18,12 +18,12 @@ fetch('http://localhost:3000/programList').then((response)=>{
 // fetch cource list
 var course = document.getElementById('courses');
 
-fetch('http://localhost:3000/courseList').then((response)=>{
+fetch('http://localhost:3000/courseData').then((response)=>{
             response.json().then((data)=>{
                 data.forEach((item)=>{
                     var s = document.createElement('option')
-                    s.innerHTML = item;
-                    s.setAttribute('value', item)
+                    s.innerHTML = item.courseName;
+                    s.setAttribute('value', item.courseName)
                     course.appendChild(s);
                 })
             })

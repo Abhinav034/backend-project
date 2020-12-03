@@ -14,6 +14,7 @@ document.getElementById('addProgram').addEventListener('click' , ()=>{
         programName,
         code
     }));
+    
 
     var res = xmlhttp.responseText
     console.log(res.name)
