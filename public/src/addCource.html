@@ -2,9 +2,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href= "../styles/style.css">
+    <link rel="stylesheet" href= "../styles/right-panel.css">
     <title>Document</title>
 </head>
 <body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left panel -->
+            <div class="col-sm-4 left-panel">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="./addProfessor.html">Instructors</a></li>
+                    <li class="list-group-item"><a href="./addProgram.html">Programs</a></li>
+                    <li class="list-group-item"><a href="./addCource.html">Courses</a></li>
+                    <li class="list-group-item"><a href="./addTimeTable.html">Generate Schedule</a></li>
+                    <li class="list-group-item"><a href="/table">Show Time Table</a></li>
+                  </ul>
+            </div>
+
+            <!-- right panel -->
+            <div class="col-sm-8 right-panel">
+                <div class="needs-validation">
+                    <input type="text" class="form-control" id="courseID" placeholder="Enter courseID" required>
+                    <input type="text" class="form-control" id="courseName" placeholder="Enter course name" required>
+                    <input type="text" class="form-control" id="roomNumber" placeholder="Enter classroom" required>
+                    <input type="text" class="form-control" id="courseHours" placeholder="Enter course hours" required>
+                    
+                    <div class="form-group">
+                        <label for="sel1">Choose an instructor:</label>
+                        <select class="form-control" id="instructor">
+                            <option class="disabled">-----</option>
+                        </select>
+                    </div>
+
+                    <button id="addCourse" type="submit" class="btn btn-add-prof">Add</button>
+                </div>
+
+                <div class="all-courses">
+                    <table id="table-courses" class="table table-dark">
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+
+    <!--
+
 
     <div>
         <input id="courceID" placeholder="Enter cource ID"/>
@@ -28,7 +78,7 @@
     
 
     <button id="add">Add</button>
-   
+   -->
 
     <script src="../scripts/cource.js"></script>
 </body>

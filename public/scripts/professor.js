@@ -3,7 +3,6 @@ var xmlhttp = new XMLHttpRequest();
 
 document.getElementById('addProf').addEventListener('click' , ()=>{
 
-
     var professorName = document.getElementById('pname').value
     var email = document.getElementById('pemail').value
     var contactInfo = document.getElementById('pcontact').value
