@@ -2,54 +2,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href= "../styles/style.css">
+    <link rel="stylesheet" href= "../styles/right-panel.css">
     <title>Document</title>
 </head>
 <body>
 
-    <div >
-        Program:
-        <select id="programs">
-            
-            
-        </select>
-    </div>
-    
-    <div >
-        Cource:
-        <select id="cources">
-            
-            
-        </select>
-    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left panel -->
+            <div class="col-sm-4 left-panel">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><a href="./addProfessor.html">Instructors</a></li>
+                    <li class="list-group-item"><a href="./addProgram.html">Programs</a></li>
+                    <li class="list-group-item"><a href="./addCource.html">Courses</a></li>
+                    <li class="list-group-item"><a href="./addTimeTable.html">Generate Schedule</a></li>
+                    <li class="list-group-item"><a href="/table">Show Time Table</a></li>
+                  </ul>
+            </div>
 
+            <!-- right panel -->
+            <div class="col-sm-8 right-panel">
+                <div class="form-group">
+                    <label for="sel1">Choose a program:</label>
+                    <select class="form-control" id="programs">
+                        <option class="disabled">-----</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sel1">Choose a course:</label>
+                    <select class="form-control" id="courses">
+                        <option class="disabled">-----</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sel1">Select Day:</label>
+                    <select class="form-control" id="day">
+                        <option>Sunday</option>
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sel1">Choose time slot:</label>
+                    <select class="form-control" id="time">
+                        <option value="10 am - 11 am">8 am - 9 am</option>
+                        <option value="9 am - 10 am">9 am - 10 am</option>
+                        <option value="10 am - 11 am">10 am - 11 am</option>
+                        <option value="11 am - 12 pm">11 am - 12 pm</option>
+                        <option value="12 pm - 1 pm">12 pm - 1 pm</option>
+                        <option value="2 pm - 3 pm">2 pm - 3 pm</option>
+                        <option value="3 pm - 4 pm">3 pm - 4 pm</option>
+                        <option value="4 pm - 5 pm">4 pm - 5 pm</option>
+                        <option value="5 am - 6 am">5 pm - 6 pm</option>
+                    </select>
+                </div>
+                <button id="btnSchedule" type="submit" class="btn btn-add">Add</button>
 
-    <div >
-        Day:
-        <select id="days">
-            <option value="Mon">MON</option>
-            <option value="Tue">TUE</option>
-            <option value="Wed">WED</option>
-            <option value="Thu">THU</option>
-            <option value="Fri">FRI</option>
-           
-            
-        </select>
-    </div>
-    
-    <div >
-        Time Slot:
-        <select id="time">
-            <option value="10 am - 11 am">10 am - 11 am</option>
-            <option value="11 am - 12 pm">11 am - 12 pm</option>
-            <option value="12 pm - 1 pm">12 pm - 1 pm</option>
-            <option value="2 pm - 3 pm">2 pm - 3 pm</option>
-            <option value="3 pm - 4 pm">3 pm - 4 pm</option>
-            <option value="4 pm - 5 pm">4 pm - 5 pm</option>    
-        </select>
-    </div>
+                <div class="all-professors">
+                    <table id="table-prof" class="table table-dark">
 
-    <button id="add">Add</button>
-   
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>   
 
     <script src="../scripts/timetable.js"></script>
 </body>

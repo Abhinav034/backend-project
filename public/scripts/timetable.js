@@ -16,15 +16,15 @@ fetch('http://localhost:3000/programList').then((response)=>{
 })
 
 // fetch cource list
-var cource = document.getElementById('cources');
+var course = document.getElementById('courses');
 
-fetch('http://localhost:3000/courceList').then((response)=>{
+fetch('http://localhost:3000/courseList').then((response)=>{
             response.json().then((data)=>{
                 data.forEach((item)=>{
                     var s = document.createElement('option')
                     s.innerHTML = item;
                     s.setAttribute('value', item)
-                    cources.appendChild(s);
+                    course.appendChild(s);
                 })
             })
         }).catch((error)=>{
@@ -33,17 +33,13 @@ fetch('http://localhost:3000/courceList').then((response)=>{
 
 var xmlhttp = new XMLHttpRequest();  
 
-document.getElementById('add').addEventListener('click' , ()=>{
+document.getElementById('btnSchedule').addEventListener('click' , ()=>{
 
     var programId = program.value
-    var courseId = cource.value
-    var day = document.getElementById('days').value
+    var courseId = course.value
+    var day = document.getElementById('day').value
     var time = document.getElementById('time').value
     
-
-
-
-     
     var theUrl = "http://localhost:3000/timetable";
     xmlhttp.open("POST", theUrl , false);
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
