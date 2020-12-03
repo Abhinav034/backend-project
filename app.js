@@ -167,25 +167,33 @@ app.post('/timetable' , async (req , res)=>{
             
             var ttObj = req.body
             console.log(ttObj)
+            console.log(1)
+            const p = await Program.findOne({programName: ttObj.programId})
+            console.log(p)
+            console.log(2)
+            var v = await TimeTable.findOne({programId: p._id, day: ttObj.day, time: ttObj.time})
+            console.log(3)
+            console.log(v)
+            console.log(4)
+            if (v === null){
+
+            const c = await Course.findOne({courseName: ttObj.courseId})
+            
+            ttObj.courseId = c._id
+            ttObj.programId = p._id
+            console.log(ttObj)
+            const test = new TimeTable(ttObj)
+            await test.save()
+            res.send('worked')
+
+            }else{
+
+                res.send('this time slot already booked for your program - operation not allowed')
+
+            }
           
 
             
-            const c = await Course.findOne({courseName: ttObj.courseId})
-            const p = await Program.findOne({programName: ttObj.programId})
-
-            ttObj.courseId = c._id
-            
-            ttObj.programId = p._id
-            
-            console.log(ttObj)
-             
-            const test = new TimeTable(ttObj)
-
-           
-    
-            await test.save()
-    
-         res.send('worked')
 
 
     } catch (error) {
@@ -221,9 +229,19 @@ app.get('/table' , async (req,res)=>{
             var data = null
             for(var j = 0 ; j < Days.length ; j++){
 
-                var o = await TimeTable.findOne({day: Days[j], time: Time[i]} )
-                
+                var o = await TimeTable.findOne({day: Days[j], time: Time[i]})
 
+
+                // MADT
+                // CSAT
+
+                // mon 10-11 c1 - MADT
+
+                // mon 10-11 c2 - CSAT
+                // mon 11-12 c3 - CSAT
+
+                // mon 11-12 c5 - MADT 
+                
                 if (o == null ){
 
                     data = 'N A'
@@ -233,7 +251,7 @@ app.get('/table' , async (req,res)=>{
                     await o.populate('courseId').execPopulate()
 
                     data = `${o.courseId.courseName}:${o.courseId.courseCode }
-                    ${o.time}\n
+                    ${o.time}ne
                     ${o.courseId.roomNumber}
                     By: Prof ${o.courseId.profId}
                     `
