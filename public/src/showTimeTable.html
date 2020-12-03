@@ -36,30 +36,33 @@
     <div class="row">
       <!-- left panel -->
       <div class="col-sm-4 left-panel">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item"><a href="./addProfessor.html">Instructors</a></li>
-          <li class="list-group-item"><a href="./addProgram.html">Programs</a></li>
-          <li class="list-group-item"><a href="./addCource.html">Courses</a></li>
-          <li class="list-group-item"><a href="./addTimeTable.html">Generate Schedule</a></li>
-          <li class="list-group-item"><a href="./showTimeTable.html">Show Time Table</a></li>
-        </ul>
+        <div class="left-inner-div">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><a href="../index.html">Home</a></li>
+            <li class="list-group-item"><a href="./addProfessor.html">Instructors</a></li>
+            <li class="list-group-item"><a href="./addProgram.html">Programs</a></li>
+            <li class="list-group-item"><a href="./addCource.html">Courses</a></li>
+            <li class="list-group-item"><a href="./addTimeTable.html">Generate Schedule</a></li>
+            <li class="list-group-item"><a href="./showTimeTable.html">Show Time Table</a></li>
+          </ul>
+        </div>
       </div>
 
       <!-- right panel -->
       <div class="col-sm-8 right-panel">
-
+        <h1>View Time Tables</h1>
         <div class="form-group">
           <label for="sel1">Choose a program:</label>
           <select class="form-control" id="programs">
               
           </select>
-          <button id="show">Show Time-Table</button>
+          <button id="show" class="btn btn-add">Show Time-Table</button>
         </div>
 
       </div>
 
       <!-- time table -->
-      <div class="col-sm-12">
+      <div class="col-sm-12 col-time-table">
 
         <table id='tt'>
         </table>

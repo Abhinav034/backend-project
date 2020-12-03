@@ -1,15 +1,27 @@
-
 var profTable = document.getElementById('table-prof')
 var xmlhttp = new XMLHttpRequest();  
 
+var professorName, email, contactInfo;
+
 showProfessorsTable();
+
+function isValid(){
+    professorName = document.getElementById('pname').value
+    email = document.getElementById('pemail').value
+    contactInfo = document.getElementById('pcontact').value
+
+    if(professorName == "" || email == "" || contactInfo == ""){
+        return false;
+    }
+    return true;
+}
 
 document.getElementById('addProf').addEventListener('click' , ()=>{
 
-    var professorName = document.getElementById('pname').value
-    var email = document.getElementById('pemail').value
-    var contactInfo = document.getElementById('pcontact').value
-
+    if(!isValid()){
+        alert("Please fill all fields!!");
+        return;
+    } 
      
     var theUrl = "http://localhost:3000/professors";
     xmlhttp.open("POST", theUrl , false);
@@ -20,60 +32,37 @@ document.getElementById('addProf').addEventListener('click' , ()=>{
         contactInfo
     }));
 
-    var x = xmlhttp.responseText
-    var data = JSON.parse(x)
-    console.log(data.message)
-    
-    //adding new professor
-    var tr = document.createElement('tr');
-    tr.setAttribute('id', data.profObj._id)
-    profTable.appendChild(tr)
+    var result = JSON.parse(xmlhttp.responseText)
+    if(result.status == "failure"){
+        alert(result.message);
+    } else if(result.status == "success"){
+        alert(result.message);
 
-    var td = document.createElement('td')
-    td.appendChild(document.createTextNode(professorName))
-    tr.appendChild(td)
+        document.getElementById('form').reset();
+        
+        //adding new professor
+        var tr = document.createElement('tr');
+        tr.setAttribute('id', result.profObj._id)
+        profTable.appendChild(tr)
 
-    var td1 = document.createElement('td')
-    td1.appendChild(document.createTextNode(email))
-    tr.appendChild(td1)
+        var td = document.createElement('td')
+        td.appendChild(document.createTextNode(professorName))
+        tr.appendChild(td)
 
-    var td2= document.createElement('td')
-    td2.appendChild(document.createTextNode(contactInfo))
-    tr.appendChild(td2)
+        var td1 = document.createElement('td')
+        td1.appendChild(document.createTextNode(email))
+        tr.appendChild(td1)
 
-    createButton(tr, function(){
-        deleteRecord(data.profObj._id, 'Professor');
-    })
+        var td2= document.createElement('td')
+        td2.appendChild(document.createTextNode(contactInfo))
+        tr.appendChild(td2)
+
+        createButton(tr, function(){
+            deleteRecord(result.profObj._id, 'Professor');
+        })
+    }
 
 })
-
-
-function createButton(context, func){
-    var button = document.createElement('button');
-    var td = document.createElement('td')
-    button.textContent = "Delete";
-    button.onclick = func;
-    td.appendChild(button)
-    context.appendChild(td);
-
-}
-
-function deleteRecord(id, tableName){
-    fetch(`http://localhost:3000/deleteRecord?id=${id}&table=${tableName}`).then(response => {
-
-        
-        response.json().then((data)=>{
-            
-            console.log(data)
-            document.getElementById(id).remove();
-            
-        })
-
-    }).catch((error) => {
-        console.log(error);
-    })
-}
-
 
  //fetch all data 
 function showProfessorsTable(){
@@ -129,4 +118,32 @@ function showProfessorsTable(){
         })
     })
            
+}
+
+function createButton(context, func){
+    var button = document.createElement('button');
+    var td = document.createElement('td')
+    td.style.textAlign = "center"
+    button.id = "btn-delete"
+    button.textContent = "Delete";
+    button.onclick = func;
+    td.appendChild(button)
+    context.appendChild(td);
+
+}
+
+function deleteRecord(id, tableName){
+    fetch(`http://localhost:3000/deleteRecord?id=${id}&table=${tableName}`).then(response => {
+
+        
+        response.json().then((data)=>{
+            
+            alert(data.message)
+            document.getElementById(id).remove();
+            
+        })
+
+    }).catch((error) => {
+        console.log(error);
+    })
 }

@@ -1,12 +1,24 @@
-var profTable = document.getElementById('table-prog')
+var progTable = document.getElementById('table-prog')
 var xmlhttp = new XMLHttpRequest();  
+var programName, code;
+
+function isValid(){
+    programName = document.getElementById('programName').value
+    code = document.getElementById('programCode').value
+
+    if(programName == "" || code == ""){
+        return false;
+    }
+    return true;
+}
 
 document.getElementById('addProgram').addEventListener('click' , ()=>{
-
-
-    var programName = document.getElementById('programName').value
-    var code = document.getElementById('programCode').value
     
+    if(!isValid()){
+        alert("Please fill all fields!!");
+        return;
+    }
+
     var theUrl = "http://localhost:3000/program";
     xmlhttp.open("POST", theUrl , false);
     xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -14,48 +26,36 @@ document.getElementById('addProgram').addEventListener('click' , ()=>{
         programName,
         code
     }));
-    
 
-    var res = xmlhttp.responseText
-    console.log(res.name)
+    var result = JSON.parse(xmlhttp.responseText)
+    if(result.status == "failure"){
+        alert(result.message);
+    } else if(result.status == "success"){
+        alert(result.message);
 
-    //refresh table
-    fetch('http://localhost:3000/programData').then((response) => {
-        response.json().then((data) => {
-            
-            let lastItem = data[data.length - 1]
+        document.getElementById('form').reset();
 
-            if(data.length == 1){
+        var tr = document.createElement('tr');
+        tr.setAttribute('id', result.progObj._id)
+        progTable.appendChild(tr)
 
-                let tr = document.createElement('tr');
-                profTable.appendChild(tr)
-                
-                let th = document.createElement('th');
-                th.appendChild(document.createTextNode('Name'))
-                tr.appendChild(th)
+        var td = document.createElement('td')
+        td.appendChild(document.createTextNode(programName))
+        tr.appendChild(td)
 
-                let th2 = document.createElement('th');
-                th2.appendChild(document.createTextNode('Email'))
-                tr.appendChild(th2)
-            }
+        var td1 = document.createElement('td')
+        td1.appendChild(document.createTextNode(code))
+        tr.appendChild(td1)
 
-                var tr = document.createElement('tr');
-                profTable.appendChild(tr)
-
-                var td = document.createElement('td')
-                td.appendChild(document.createTextNode(lastItem.programName))
-                tr.appendChild(td)
-
-                var td1 = document.createElement('td')
-                td1.appendChild(document.createTextNode(lastItem.code))
-                tr.appendChild(td1)
-            
+        createButton(tr, function(){
+            deleteRecord(result.progObj._id, 'Program');
         })
-    })
+    }
 
 })
 
-fetch('http://localhost:3000/programData').then((response) => {
+function showProgramsTable(){
+    fetch('http://localhost:3000/programData').then((response) => {
     response.json().then((data) => {
         
         console.log(data.length);
@@ -64,7 +64,7 @@ fetch('http://localhost:3000/programData').then((response) => {
         if(data.length > 0){
 
             let tr = document.createElement('tr');
-            profTable.appendChild(tr)
+            progTable.appendChild(tr)
             
             let th = document.createElement('th');
             th.appendChild(document.createTextNode('Name'));
@@ -78,7 +78,8 @@ fetch('http://localhost:3000/programData').then((response) => {
         data.forEach((item) => {
             console.log(item);
             var tr = document.createElement('tr');
-            profTable.appendChild(tr)
+            tr.setAttribute('id', item._id)
+            progTable.appendChild(tr)
 
             var td = document.createElement('td')
             td.appendChild(document.createTextNode(item.programName))
@@ -88,7 +89,39 @@ fetch('http://localhost:3000/programData').then((response) => {
             td1.appendChild(document.createTextNode(item.code))
             tr.appendChild(td1)
             
+            createButton(tr, function(){
+                deleteRecord(item._id, 'Program');
+            })
         })
     })
 })
+}
 
+function createButton(context, func){
+    var button = document.createElement('button');
+    var td = document.createElement('td')
+    td.style.textAlign = "center"
+    button.id = "btn-delete"
+    button.textContent = "Delete";
+    button.onclick = func;
+    td.appendChild(button)
+    context.appendChild(td);
+
+}
+
+function deleteRecord(id, tableName){
+    fetch(`http://localhost:3000/deleteRecord?id=${id}&table=${tableName}`).then(response => {
+        
+        response.json().then((data)=>{
+            
+            alert(data.message)
+            document.getElementById(id).remove();
+            
+        })
+
+    }).catch((error) => {
+        console.log(error);
+    })
+}
+
+showProgramsTable();

@@ -1,19 +1,38 @@
+body{
+    background-color: #fdfafa;
+}
 .container-fluid {
     padding: 15px;
 }
-.left-panel{
+.col-sm-4.left-panel {
+    height: 115%;
+}
+.left-panel .left-inner-div{
     background-color: #367082;
+    padding: 20px;
 }
 .left-panel .list-group-flush>.list-group-item {
     background-color: transparent;
     border-color: white;
-    /* border: 1px solid; */
+    padding: 0px;
     border-width: 1px;
     margin: 2% 0%;
     border-radius: 10px;
 }
 .left-panel a {
     color: white;
+    display: block;
+    text-decoration: none;
+    padding: 15px 20px;
+}
+
+.left-panel .list-group-item:hover{
+    background-color: white;
+
+}
+.left-panel a:hover{
+    color: #367082;
+
 }
 
 

@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href= "../styles/style.css">
     <link rel="stylesheet" href= "../styles/right-panel.css">
-    <title>Document</title>
+    <title>Time Table Generator</title>
 </head>
 <body>
 
@@ -17,23 +17,27 @@
         <div class="row">
             <!-- left panel -->
             <div class="col-sm-4 left-panel">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><a href="./addProfessor.html">Instructors</a></li>
-                    <li class="list-group-item"><a href="./addProgram.html">Programs</a></li>
-                    <li class="list-group-item"><a href="./addCource.html">Courses</a></li>
-                    <li class="list-group-item"><a href="./addTimeTable.html">Generate Schedule</a></li>
-                    <li class="list-group-item"><a href="./showTimeTable.html">Show Time Table</a></li>
-                  </ul>
+                <div class="left-inner-div">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item"><a href="../index.html">Home</a></li>
+                        <li class="list-group-item"><a href="./addProfessor.html">Instructors</a></li>
+                        <li class="list-group-item"><a href="./addProgram.html">Programs</a></li>
+                        <li class="list-group-item"><a href="./addCource.html">Courses</a></li>
+                        <li class="list-group-item"><a href="./addTimeTable.html">Generate Schedule</a></li>
+                        <li class="list-group-item"><a href="./showTimeTable.html">Show Time Table</a></li>
+                    </ul>
+                </div>
             </div>
 
             <!-- right panel -->
             <div class="col-sm-8 right-panel">
-                <div class="needs-validation">
-                      <input type="text" class="form-control" id="programName" placeholder="Enter program name" required>
-                      <input type="text" class="form-control" id="programCode" placeholder="Enter program code" required>
+                <h1>Add a program</h1>
+                <form class="needs-validation" id="form">
+                      <input type="text" class="form-control" id="programName" placeholder="Enter program name">
+                      <input type="text" class="form-control" id="programCode" placeholder="Enter program code">
                      
-                    <button id="addProgram" type="submit" class="btn btn-add-prof">Add</button>
-                </div>
+                    <button id="addProgram" type="submit" class="btn btn-add">Add</button>
+                </form>
 
                 <div class="all-programs">
                     <table id="table-prog" class="table table-dark">

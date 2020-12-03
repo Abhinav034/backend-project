@@ -22,8 +22,8 @@ var prog = document.getElementById('programs')
 
 document.getElementById('show').addEventListener('click' , ()=>{
 
+    console.log(prog.value);
     fetch(`http://localhost:3000/table?pn=${prog.value}`).then((response)=>{
-            
 
             console.log(response)
             response.json().then((data)=>{

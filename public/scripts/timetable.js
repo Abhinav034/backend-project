@@ -15,7 +15,7 @@ fetch('http://localhost:3000/programData').then((response)=>{
             console.log(error)
 })
 
-// fetch cource list
+// fetch course list
 var course = document.getElementById('courses');
 
 fetch('http://localhost:3000/courseData').then((response)=>{
@@ -51,5 +51,11 @@ document.getElementById('btnSchedule').addEventListener('click' , ()=>{
     }));
 
     console.log(xmlhttp.responseText)
+    var result = JSON.parse(xmlhttp.responseText)
+    if(result.status == "failure"){
+        alert(result.message);
+    } else if(result.status == "success"){
+        alert(result.message);
+    }
 })
 

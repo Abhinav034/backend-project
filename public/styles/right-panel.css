@@ -1,13 +1,43 @@
+.right-panel{
+    padding: 2%;
+}
+
 .right-panel .form-control{
     width: 40%;
     margin: 2% 0%;
 }
 
 .btn-add{
-    border: 1px solid #000000;
+    border: 1px solid #3f3e3e;
     padding: 7px 40px;
+    margin: 10px 0px;
+}
+.btn-add:hover{
+    background-color: #3f3e3e;
+    color: white;
 }
 
-#addProf{
-    margin: 10px 0px;
+#btn-delete{
+    padding: 9px 15px;
+    background-color: #f3efee;
+    border: 1px solid;
+    border-radius: 10px;
+}
+#btn-delete:hover{
+    background-color: #367182;
+    color:white
+}
+
+.col-time-table{
+    padding: 3% 2%;
+
+}
+.btndelete{
+    padding: 9px 15px;
+    border: 1px solid;
+    border-radius: 10px;
+}
+.btndelete:hover{
+    background-color: #367182;
+    color:white
 }
