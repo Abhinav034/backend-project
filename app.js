@@ -60,6 +60,23 @@ app.get('/professorsList' , async (req , res)=>{
 
 })
 
+app.get('/remove' , async (req , res)=>{
+
+    
+
+    try {
+        
+       const isRemoved =  await TimeTable.findByIdAndRemove(req.query.id)
+        
+       
+       res.send({msg:'Deleted'})
+
+    } catch (error) {
+        res.send(error)
+    }
+
+})
+
 // professor all data list
 app.get('/professorsData' , async (req , res)=>{
 
@@ -190,6 +207,11 @@ app.get('/professors' , async(req,res)=>{
 })
 
 app.get('/table' , async (req,res)=>{
+
+        var prog_name = req.query.pn
+        console.log(prog_name)
+        var pobj = await Program.findOne({programName:prog_name});
+
     
         Days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']
         Time = ['10 am - 11 am','11 am - 12 pm','12 pm - 1 pm','2 pm - 3 pm','3 pm - 4 pm','4 pm - 5 pm']
@@ -201,18 +223,8 @@ app.get('/table' , async (req,res)=>{
             var data = null
             for(var j = 0 ; j < Days.length ; j++){
 
-                var o = await TimeTable.findOne({day: Days[j], time: Time[i]})
+                var o = await TimeTable.findOne({day: Days[j], time: Time[i],programId: pobj._id })
 
-
-                // MADT
-                // CSAT
-
-                // mon 10-11 c1 - MADT
-
-                // mon 10-11 c2 - CSAT
-                // mon 11-12 c3 - CSAT
-
-                // mon 11-12 c5 - MADT 
                 
                 if (o == null ){
 
@@ -223,9 +235,9 @@ app.get('/table' , async (req,res)=>{
                     await o.populate('courseId').execPopulate()
 
                     data = `${o.courseId.courseName}:${o.courseId.courseCode }
-                    ${o.time}ne
+                    ${o.time}\n
                     ${o.courseId.roomNumber}
-                    By: Prof ${o.courseId.profId}
+                    By: Prof ${o.courseId.profId} <button id='${o._id}' onclick="removeEntry('${o._id}')">Delete</button>
                     `
                 }
      
@@ -235,37 +247,17 @@ app.get('/table' , async (req,res)=>{
 
         }
 
-        var cont = `
-        <style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-
-<table>
-<tr>
-<th>${Days[0]}</th>
-<th>${Days[1]}</th>
-<th>${Days[2]}</th>
-<th>${Days[3]}</th>
-<th>${Days[4]}</th>
-</tr>
-
-${tableRowCol}
-</table>`
-        res.send(cont)
+        var content = `<tr>
+                    <th>${Days[0]}</th>
+                    <th>${Days[1]}</th>
+                    <th>${Days[2]}</th>
+                    <th>${Days[3]}</th>
+                    <th>${Days[4]}</th>
+                    </tr>
+                    ${tableRowCol}`
+                    
+    
+        res.send(JSON.stringify({content}))
   
 })
 
